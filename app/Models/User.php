@@ -24,6 +24,7 @@ class User extends Authenticatable
         'account_balance',
         'email',
         'password',
+        // 'permission_level'
     ];
 
     /**

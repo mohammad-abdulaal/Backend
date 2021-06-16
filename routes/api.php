@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\WalletController;
+use App\Models\AccountModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +26,11 @@ Route::get('/tests',function(){
     return ['name'=>'mohammad'];
 });
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/user', [AuthController::class, 'user']);
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth.api')->get('/user', [AuthController::class, 'user']);
+Route::middleware('auth.api')->post('/createAccount', [AccountController::class, 'post']);
+Route::middleware('auth.api')->post('/wallet', [WalletController::class, 'post']);
+
+
 // gi
