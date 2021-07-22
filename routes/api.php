@@ -29,8 +29,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth.api')->get('/user', [AuthController::class, 'user']);
+Route::middleware('auth.api')->post('/approve', [AuthController::class, 'approve']);
 Route::middleware('auth.api')->post('/createAccount', [AccountController::class, 'post']);
 Route::middleware('auth.api')->post('/wallet', [WalletController::class, 'post']);
-
+Route::middleware('auth.api')->get('/getbyid/{id}', [WalletController::class, 'getById']);
+Route::middleware('auth.api')->post('/transfer', [WalletController::class, 'transfer']);
+Route::middleware('auth.api')->put('/pay', [WalletController::class, 'put']);
 
 // gi

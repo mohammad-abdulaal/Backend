@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->double('account_balance');
+            $table->longtext('passport_picture');
+            $table->boolean('is_approved');
+            $table->double('Fin_number');
             $table->string('location');
             $table->rememberToken();
             $table->timestamps();

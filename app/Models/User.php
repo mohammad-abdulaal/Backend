@@ -22,9 +22,11 @@ class User extends Authenticatable
         'phone_number',
         'location',
         'account_balance',
+        'passport_picture',
+        'Fin_number',
         'email',
         'password',
-        // 'permission_level'
+        'is_approved'
     ];
 
     /**

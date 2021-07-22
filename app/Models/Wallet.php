@@ -12,9 +12,10 @@ class Wallet extends Model
     public $table = 'wallet';
 
     protected $fillable = [
-        'Income',
-        'Expenses',
-        'Transaction',
+        // 'Income',
+        // 'Expense',
+        'transaction',
+        'amount'
     ];
 
     public function user()
@@ -24,9 +25,10 @@ class Wallet extends Model
 
     public static function createAccount(Request $request , int $user_id){
         $wallet = new Wallet();
-        $wallet->Income = $request['Income'];
-        $wallet->Expenses = $request['Expenses'];
-        $wallet->Transaction = $request['Transaction'];
+        // $wallet->Income = $request['Income'];
+        // $wallet->Expense = $request['Expense'];
+        $wallet->transaction = $request['transaction'];
+        $wallet->amount = $request['amount'];
         $wallet->user_id = $user_id;
         $wallet->save();
         return $wallet;

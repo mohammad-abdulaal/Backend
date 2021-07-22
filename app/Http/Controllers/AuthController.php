@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Float_;
+
 // use App\User;
 
 class AuthController extends Controller
@@ -22,7 +24,7 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+                $response = ['token' => $token , 'email'=>$user->email];
                 return response($response, 200);
             } else {
                 $response = ["message" => "Password mismatch"];
@@ -41,16 +43,19 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|string',
-            'account_balance' => 'required|string',
-            'location' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
-        ]);
+        ini_set('mysql.connect_timeout', 1000);
+        ini_set('default_socket_timeout', 1000);
+        // $request->validate([
+        //     'first_name' => 'required|string',
+        //     'last_name' => 'required|string',
+        //     'phone_number' => 'required|string',
+        //     'account_balance' => 'required|string',
+        //     'location' => 'required|string',
+        //     'email' => 'required|string|email|unique:users',
+        //     'passport_picture' => 'required|string',
+        //     'Fin_number' => 'required|string',
 
+        // ]);
         $user=new User([
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
@@ -58,6 +63,9 @@ class AuthController extends Controller
             'account_balance'=>$request->account_balance,
             'location'=>$request->location,
             'email'=>$request->email,
+            'passport_picture'=>$request->passport_picture,
+            'Fin_number'=> (float)$request->Fin_number,
+            'is_approved'=>$request->is_approved=0,
             'password'=>bcrypt($request->password),
         ]);
 
@@ -74,5 +82,18 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
+    public function approve(Request $request)
+    {
+        $user=User::find($request->user_id);
+        $user->is_approved=1;
+        $user->save();
+
+        return response()->json([
+            'message'=>'Successfully updated !'
+        ],201);
+    }
+
+
+
 
 }
