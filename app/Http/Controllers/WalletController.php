@@ -16,10 +16,7 @@ class WalletController extends Controller
         return response()->json($account);
     }
 
-    public function getByID($id){
-        $account = Wallet::find($id);
-        return response()->json($account);
-    }
+
 
     public function delete($id) {
         return response()->json(Wallet::destroy($id));

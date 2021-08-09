@@ -17,6 +17,7 @@ class CreateWalletTable extends Migration
             $table->id();
             $table->string('amount');
             $table->string('transaction');
+            $table->string('category');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

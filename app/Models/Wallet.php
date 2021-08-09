@@ -25,9 +25,8 @@ class Wallet extends Model
 
     public static function createAccount(Request $request , int $user_id){
         $wallet = new Wallet();
-        // $wallet->Income = $request['Income'];
-        // $wallet->Expense = $request['Expense'];
         $wallet->transaction = $request['transaction'];
+        $wallet->transaction = $request['category'];
         $wallet->amount = $request['amount'];
         $wallet->user_id = $user_id;
         $wallet->save();
